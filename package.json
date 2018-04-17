@@ -1,0 +1,46 @@
+{
+  "name": "@codex-protocol/ethereum-service",
+  "version": "1.0.0",
+  "description": "Ethereum Service & Codex Protocol Smart Contracts",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "prepublish": "npm run build",
+    "preversion": "npm run build",
+    "lint": "eslint src/. build/.",
+    "build": "npm run lint && npm run compile",
+    "start": "npm run lint && npm run compile && node dist/index.js",
+    "bump-version": "npm version patch -m \"Bumps version to %s\" && npm publish",
+    "compile": "npm run clean && babel-node build/prune-contracts.js && babel src --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codex-protocol/ethereum-service"
+  },
+  "contributors": [
+    {
+      "name": "John Forrest"
+    },
+    {
+      "name": "Colin Wood"
+    }
+  ],
+  "license": "UNLICENCED",
+  "homepage": "https://github.com/codex-protocol/ethereum-service",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "mkdirp": "^0.5.1"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "web3": "^1.0.0-beta.34"
+  }
+}

@@ -1,0 +1,5 @@
+dist
+.DS_Store
+node_modules
+static/contracts/5777/*.json
+static/contracts-source/*/*.json

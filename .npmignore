@@ -1,0 +1,6 @@
+src
+build
+.babelrc
+.eslintrc
+static/contracts-source
+static/contracts/README.md
