@@ -2,5 +2,6 @@ src
 build
 .babelrc
 .eslintrc
+static/contracts/5777
 static/contracts-source
 static/contracts/README.md
