@@ -10,6 +10,67 @@ projects so that each individual project doesn't have to set up the eth client
 itself.
 
 
+## Installation & Contract Development
+
+To use this package as you develop smart contracts locally, follow these steps:
+
+### tl;dr
+```bash
+
+cd contract.biddable-escrow
+npm run migrate:reset # or `npm run copy` if you already have this contract deployed
+
+# repeat the steps above for each contract you need in your project
+
+cd ../npm.ethereum-service
+npm run build
+npm link
+
+cd ../service.biddable-api # or whatever project you need to use contracts in
+npm install --save @codex-protocol/ethereum-service@latest
+npm link @codex-protocol/ethereum-service
+npm start
+
+```
+
+### The Long Version
+
+1. Clone this repository and the contract source repo you want to develop
+   (see below.)
+
+1. In the contract source repository, run `npm run migrate:reset`. This will
+   deploy the contract to Ganache and copy the
+   [Truffle Contract Object JSON](https://github.com/trufflesuite/truffle-contract-schema)
+   over into this repo's `static` folder. If you've already got the contracts
+   deployed locally, then just run `npm run copy`
+
+1. Inside this repo, run `npm build`. This will strip out the essential values
+   from the JSON files and save the pruned JSON for use inside your projects.
+
+1. Inside this repo, run `npm link`. This will create a symlink in your global
+   `node_modules` folder that other projects can read from. See
+   [these docs](https://docs.npmjs.com/cli/link) for more info on `npm link`.
+
+1. Inside whatever repo is using these contracts, run
+   `npm install @codex-protocol/ethereum-service` to install the currently
+   published version.
+
+   _NOTE: You should also set the package version for
+   `@codex-protocol/ethereum-service` set to `latest` instead of a specific
+   version number so that deployments will always grab the most recently
+   published package version._
+
+   Still in whatever repo is using these contracts, run
+   `npm link @codex-protocol/ethereum-service`. This will create a symlink in
+   the project's `node_modules` folder that points to the symlink created in the
+   previous step.
+
+Now you should have the latest development changes available in the repos using
+this package. When contract changes are made from now on, just run `npm migrate`
+in the contract repo and `npm build` in this repo, then restart the applications
+using the this package.
+
+
 ## Usage
 
 Export `ETHEREUM_NETWORK_ID` & `ETHEREUM_RPC_URL` as environment variables, or
@@ -27,45 +88,6 @@ ethClient.sendSignedTransaction(/* ... */)
 contracts.BiddableEscrow.getPastEvents(/* ... */)
 
 ```
-
-
-## Contract Development
-
-To use this package as you develop smart contracts locally, follow these steps:
-
-1. Clone this repository and the contract source repo you want to develop
-   (see below.)
-
-1. Inside this repo, run `npm link`. This will create a symlink in your global
-   `node_modules` folder that other projects can read from. See
-   [these docs](https://docs.npmjs.com/cli/link) for more info on `npm link`.
-
-1. Inside whatever repo is using these contracts, run
-   `npm install @codex-protocol/ethereum-service` to install the currently
-   published version.
-
-   You should also have the package version for
-   `@codex-protocol/ethereum-service` set to `latest` instead of a specific
-   version number so that deployments will always grab the most recently
-   published package version.
-
-   Still in whatever repo is using these contracts, run
-   `npm link @codex-protocol/ethereum-service`. This will create a symlink in
-   the project's `node_modules` folder that points to the symlink created in the
-   previous step.
-
-1. In the contract source repository, run `npm run migrate:reset`. This will
-   deploy the contract to Ganache and copy the
-   [Truffle Contract Object JSON](https://github.com/trufflesuite/truffle-contract-schema)
-   over into this repo's `static` folder.
-
-1. Inside this repo, run `npm build`. This will strip out the essential values
-   from the JSON files and save the pruned JSON for use inside your projects.
-
-Now you should have the latest development changes available in the repos using
-this package. When contract changes are made from now on, just run `npm copy` in
-the contract repo and `npm build` in this repo and restart application using the
-this package, then you should be good to go.
 
 
 ## Publishing New Contract Revisions
