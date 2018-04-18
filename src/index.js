@@ -2,7 +2,7 @@ import fs from 'fs'
 import Web3 from 'web3'
 
 if (!process.env.ETHEREUM_NETWORK_ID || !process.env.ETHEREUM_RPC_URL) {
-  console.error('both ETHEREUM_NETWORK_ID and ETHEREUM_RPC_URL environment variables must be set to use the @codex-protocol/ethereum-service package')
+  console.error('[npm.ethereum-service]', 'both ETHEREUM_NETWORK_ID and ETHEREUM_RPC_URL environment variables must be set to use this package')
   process.exit(1)
 }
 
@@ -11,7 +11,7 @@ const contractDirectoryPath = `${__dirname}/../static/contracts/${process.env.ET
 try {
   fs.statSync(contractDirectoryPath)
 } catch (error) {
-  console.error(`network with id ${process.env.ETHEREUM_NETWORK_ID} is invalid, no contract directory found`)
+  console.error('[npm.ethereum-service]', `network with id ${process.env.ETHEREUM_NETWORK_ID} is invalid, no contract directory found`)
   process.exit(1)
 }
 
@@ -33,7 +33,7 @@ contractFileNames.forEach((contractFileName) => {
   try {
     fs.statSync(contractFilePath)
   } catch (error) {
-    console.warn(`skipping ${contractFileName} because it has no contract JSON for network with id ${process.env.ETHEREUM_NETWORK_ID}`)
+    console.warn('[npm.ethereum-service]', `skipping ${contractFileName} because it has no contract JSON for network with id ${process.env.ETHEREUM_NETWORK_ID}`)
     return
   }
 
