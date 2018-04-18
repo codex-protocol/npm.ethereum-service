@@ -11,7 +11,17 @@ networkIds.forEach((networkId) => {
   mkdirp.sync(prunedContractDirectoryPath)
   mkdirp.sync(sourceContractDirectoryPath)
 
-  fs.readdirSync(sourceContractDirectoryPath)
+  const contractFileNames = fs.readdirSync(sourceContractDirectoryPath)
+
+  if (
+    (contractFileNames.includes('CodexTitle.json') && !contractFileNames.includes('TokenProxy.json')) ||
+    (!contractFileNames.includes('CodexTitle.json') && contractFileNames.includes('TokenProxy.json'))
+  ) {
+    console.warn('[npm.ethereum-service]', `CodexTitle and TokenProxy are mutually inclusive, and one is missing for network id ${networkId}`)
+    process.exit(1)
+  }
+
+  contractFileNames
     .forEach((contractFileName) => {
 
       // do not consider files that start with an underscore or dot as valid
@@ -25,7 +35,7 @@ networkIds.forEach((networkId) => {
       const contractJSON = JSON.parse(fs.readFileSync(contractFilePath))
 
       if (!contractJSON.networks[networkId]) {
-        console.warn(`skipping ${contractFilePath} because it has no address for network with id ${networkId}`)
+        console.warn('[npm.ethereum-service]', `skipping ${contractFilePath} because it has no address for network with id ${networkId}`)
         return
       }
 
