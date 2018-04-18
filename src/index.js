@@ -48,6 +48,11 @@ contractFileNames.forEach((contractFileName) => {
 
 })
 
+if (contracts.CodexTitle && contracts.TokenProxy) {
+  contracts.CodexTitle.options.address = contracts.TokenProxy.options.address
+  delete contracts.TokenProxy
+}
+
 export {
   contracts,
   ethClient,
