@@ -15,7 +15,8 @@ try {
   process.exit(1)
 }
 
-const ethClient = new Web3(process.env.ETHEREUM_RPC_URL).eth
+const web3 = new Web3(process.env.ETHEREUM_RPC_URL)
+const { eth } = web3
 
 const contracts = {}
 const contractFileNames = fs.readdirSync(contractDirectoryPath)
@@ -40,7 +41,7 @@ contractFileNames.forEach((contractFileName) => {
   const contractJSON = JSON.parse(fs.readFileSync(contractFilePath))
 
   const contractAddress = contractJSON.address
-  const contract = new ethClient.Contract(contractJSON.abi, contractAddress)
+  const contract = new web3.eth.Contract(contractJSON.abi, contractAddress)
 
   contract.name = contractJSON.name
 
@@ -55,10 +56,12 @@ if (contracts.CodexTitle && contracts.TokenProxy) {
 
 export {
   contracts,
-  ethClient,
+  web3,
+  eth,
 }
 
 export default {
   contracts,
-  ethClient,
+  web3,
+  eth,
 }
