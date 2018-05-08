@@ -23,7 +23,6 @@ npm run migrate:reset # or `npm run copy` if you already have this contract depl
 # repeat the steps above for each contract you need in your project
 
 cd ../npm.ethereum-service
-npm run build
 npm link
 
 cd ../service.biddable-api # or whatever project you need to use contracts in
@@ -42,10 +41,10 @@ npm start
    deploy the contract to Ganache and copy the
    [Truffle Contract Object JSON](https://github.com/trufflesuite/truffle-contract-schema)
    over into this repo's `static` folder. If you've already got the contracts
-   deployed locally, then just run `npm run copy`
-
-1. Inside this repo, run `npm build`. This will strip out the essential values
-   from the JSON files and save the pruned JSON for use inside your projects.
+   deployed locally, then just run `npm run copy`. This step will also run
+   `npm run build` in the npm.ethereum-serivce repo, which strips out the
+   essential values from the JSON files and saves the pruned JSON for use inside
+   your projects.
 
 1. Inside this repo, run `npm link`. This will create a symlink in your global
    `node_modules` folder that other projects can read from. See
@@ -67,8 +66,15 @@ npm start
 
 Now you should have the latest development changes available in the repos using
 this package. When contract changes are made from now on, just run `npm migrate`
-in the contract repo and `npm build` in this repo, then restart the applications
-using the this package.
+in the contract repo, then restart the applications using the this package.
+
+### Caveats
+
+Every time you do a fresh `npm install` in the repos that use this package, you
+will have to re-link your local environment so that the development builds of
+the contracts are available. So just run
+`npm install && npm link @codex-protocol/ethereum-service` whenever you want to
+install dependencies in projects that use this package.
 
 
 ## Usage
@@ -79,11 +85,11 @@ in a .env file. Then you can consume the package like so:
 
 ```javascript
 
-// NOTE: ethClient will point to Ganache locally, Rinkeby for staging, and
+// NOTE: eth will point to Ganache locally, Rinkeby for staging, and
 //  Mainnet for production
-import { ethClient, contracts } from '@codex-protocol/ethereum-service'
+import { eth, contracts } from '@codex-protocol/ethereum-service'
 
-ethClient.sendSignedTransaction(/* ... */)
+eth.sendSignedTransaction(/* ... */)
 
 contracts.BiddableEscrow.getPastEvents(/* ... */)
 
