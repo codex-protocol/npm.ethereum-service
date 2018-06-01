@@ -1,6 +1,6 @@
 {
   "name": "@codex-protocol/ethereum-service",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Ethereum Service & Codex Protocol Smart Contracts",
   "main": "dist/index.js",
   "scripts": {
