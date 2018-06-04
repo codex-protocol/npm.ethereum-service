@@ -49,9 +49,9 @@ contractFileNames.forEach((contractFileName) => {
 
 })
 
-if (contracts.CodexTitle && contracts.CodexTitleProxy) {
-  contracts.CodexTitle.options.address = contracts.CodexTitleProxy.options.address
-  delete contracts.CodexTitleProxy
+if (contracts.CodexRecord && contracts.CodexRecordProxy) {
+  contracts.CodexRecord.options.address = contracts.CodexRecordProxy.options.address
+  delete contracts.CodexRecordProxy
 }
 
 export {

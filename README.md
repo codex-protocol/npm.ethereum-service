@@ -113,4 +113,5 @@ When you're ready to publish new contract changes, follow these steps:
 
 ## Contract Source Repositories
 - [BiddableEscrow](https://github.com/codex-protocol/contract.biddable-escrow)
-- [CodexTitle](https://github.com/codex-protocol/contract.codex-registry)
+- [CodexRecord](https://github.com/codex-protocol/contract.codex-registry)
+- [CodexToken](https://github.com/codex-protocol/contract.codex-token)

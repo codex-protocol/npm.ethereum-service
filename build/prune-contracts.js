@@ -14,10 +14,10 @@ networkIds.forEach((networkId) => {
   const contractFileNames = fs.readdirSync(sourceContractDirectoryPath)
 
   if (
-    (contractFileNames.includes('CodexTitle.json') && !contractFileNames.includes('CodexTitleProxy.json')) ||
-    (!contractFileNames.includes('CodexTitle.json') && contractFileNames.includes('CodexTitleProxy.json'))
+    (contractFileNames.includes('CodexRecord.json') && !contractFileNames.includes('CodexRecordProxy.json')) ||
+    (!contractFileNames.includes('CodexRecord.json') && contractFileNames.includes('CodexRecordProxy.json'))
   ) {
-    console.warn('[npm.ethereum-service]', `CodexTitle and CodexTitleProxy are mutually inclusive, and one is missing for network id ${networkId}`)
+    console.warn('[npm.ethereum-service]', `CodexRecord and CodexRecordProxy are mutually inclusive, and one is missing for network id ${networkId}`)
     process.exit(1)
   }
 
