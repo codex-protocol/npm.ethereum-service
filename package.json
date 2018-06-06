@@ -25,7 +25,7 @@
       "name": "Colin Wood"
     }
   ],
-  "license": "UNLICENCED",
+  "license": "AGPL-3.0-or-later",
   "homepage": "https://github.com/codex-protocol/ethereum-service",
   "devDependencies": {
     "@codex-protocol/eslint-config-base": "latest",
