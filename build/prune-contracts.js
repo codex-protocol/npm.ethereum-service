@@ -1,7 +1,7 @@
 import fs from 'fs'
 import mkdirp from 'mkdirp'
 
-const networkIds = [1, 4, 5777]
+const networkIds = [1, 3, 4, 5777]
 
 networkIds.forEach((networkId) => {
 
