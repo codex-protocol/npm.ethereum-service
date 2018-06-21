@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/codex-protocol/ethereum-service"
+    "url": "https://github.com/codex-protocol/npm.ethereum-service"
   },
   "contributors": [
     {
@@ -26,7 +26,7 @@
     }
   ],
   "license": "AGPL-3.0-or-later",
-  "homepage": "https://github.com/codex-protocol/ethereum-service",
+  "homepage": "https://github.com/codex-protocol/npm.ethereum-service",
   "devDependencies": {
     "@codex-protocol/eslint-config-base": "latest",
     "babel-cli": "^6.26.0",
