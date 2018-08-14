@@ -40,9 +40,10 @@ networkIds.forEach((networkId) => {
       }
 
       const contractData = {
-        name: contractJSON.contractName,
-        address: contractJSON.networks[networkId].address,
         abi: contractJSON.abi,
+        name: contractJSON.contractName,
+        bytecode: contractJSON.bytecode,
+        address: contractJSON.networks[networkId].address,
       }
 
       fs.writeFileSync(`${prunedContractDirectoryPath}/${contractFileName}`, JSON.stringify(contractData))
