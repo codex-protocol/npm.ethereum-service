@@ -4,14 +4,14 @@
   "description": "Ethereum Service & Codex Protocol Smart Contracts",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "rm -rf dist",
     "prepublish": "npm run build",
     "preversion": "npm run build",
     "lint": "eslint src/. build/.",
+    "clean": "rm -rf dist && mkdir dist",
     "build": "npm run lint && npm run compile",
     "start": "npm run lint && npm run compile && node dist/index.js",
     "bump-version": "npm version patch -m \"Bumps version to %s\" && npm publish",
-    "compile": "npm run clean && babel-node build/prune-contracts.js && babel src --out-dir dist"
+    "compile": "npm run clean && babel-node build/index.js && babel src --out-dir dist"
   },
   "repository": {
     "type": "git",
