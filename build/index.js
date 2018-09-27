@@ -12,17 +12,19 @@ networkIds.forEach((networkId) => {
   mkdirp.sync(prunedContractDirectoryPath)
   mkdirp.sync(sourceContractDirectoryPath)
 
-  const contractFileNames = fs.readdirSync(sourceContractDirectoryPath)
+  // first, iterate over the source contracts and export a single pruned json
+  //  file for each contract
+  const sourceContractFileNames = fs.readdirSync(sourceContractDirectoryPath)
 
   if (
-    (contractFileNames.includes('CodexRecord.json') && !contractFileNames.includes('CodexRecordProxy.json')) ||
-    (!contractFileNames.includes('CodexRecord.json') && contractFileNames.includes('CodexRecordProxy.json'))
+    (sourceContractFileNames.includes('CodexRecord.json') && !sourceContractFileNames.includes('CodexRecordProxy.json')) ||
+    (!sourceContractFileNames.includes('CodexRecord.json') && sourceContractFileNames.includes('CodexRecordProxy.json'))
   ) {
     console.warn('[npm.ethereum-service]', `CodexRecord and CodexRecordProxy are mutually inclusive, and one is missing for network id ${networkId}`)
     process.exit(1)
   }
 
-  contractFileNames
+  sourceContractFileNames
     .forEach((contractFileName) => {
 
       // do not consider files that start with an underscore or dot as valid
@@ -32,7 +34,6 @@ networkIds.forEach((networkId) => {
       }
 
       const contractFilePath = `${sourceContractDirectoryPath}/${contractFileName}`
-
       const contractJSON = JSON.parse(fs.readFileSync(contractFilePath))
 
       if (!contractJSON.networks[networkId] && contractJSON.contractName !== 'IdentityProxy') {
@@ -53,8 +54,36 @@ networkIds.forEach((networkId) => {
 
       fs.writeFileSync(`${prunedContractDirectoryPath}/${contractFileName}`, JSON.stringify(contractData))
 
+    })
+
+  // now iterate over the pruned contracts and create a monolithic json file
+  //  with all contracts (used by the frontend)
+  const prunedContractFileNames = fs.readdirSync(prunedContractDirectoryPath)
+
+  prunedContractFileNames
+    .forEach((contractFileName) => {
+
+      // do not consider files that start with an underscore or dot as valid
+      //  contracts
+      if (/^(_|\.)/.test(contractFileName) || !/\.json$/g.test(contractFileName)) {
+        return
+      }
+
+      const contractFilePath = `${prunedContractDirectoryPath}/${contractFileName}`
+      const contractData = JSON.parse(fs.readFileSync(contractFilePath))
+
+      // since the bytecode isn't really necessary on the frontend right now,
+      //  let's remove it from the monolithic json file since doing so reduces
+      //  the file size from lik3 ~350kb to 100kb
+      delete contractData.bytecode
+
       allContracts[networkId] = allContracts[networkId] || {}
       allContracts[networkId][contractData.name] = contractData
+
+      if (allContracts[networkId].CodexRecord && allContracts[networkId].CodexRecordProxy) {
+        allContracts[networkId].CodexRecord.address = allContracts[networkId].CodexRecordProxy.address
+        delete allContracts[networkId].CodexRecordProxy
+      }
 
     })
 
