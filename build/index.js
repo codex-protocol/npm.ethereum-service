@@ -1,6 +1,7 @@
 import fs from 'fs'
 import mkdirp from 'mkdirp'
 
+const allContracts = {}
 const networkIds = [1, 3, 4, 5777]
 
 networkIds.forEach((networkId) => {
@@ -52,6 +53,11 @@ networkIds.forEach((networkId) => {
 
       fs.writeFileSync(`${prunedContractDirectoryPath}/${contractFileName}`, JSON.stringify(contractData))
 
+      allContracts[networkId] = allContracts[networkId] || {}
+      allContracts[networkId][contractData.name] = contractData
+
     })
 
 })
+
+fs.writeFileSync(`${__dirname}/../dist/contracts-by-network.json`, JSON.stringify(allContracts))

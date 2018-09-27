@@ -40,8 +40,7 @@ contractFileNames.forEach((contractFileName) => {
 
   const contractJSON = JSON.parse(fs.readFileSync(contractFilePath))
 
-  const contractAddress = contractJSON.address
-  const contract = new web3.eth.Contract(contractJSON.abi, contractAddress)
+  const contract = new web3.eth.Contract(contractJSON.abi, contractJSON.address)
 
   contract.name = contractJSON.name
   contract.bytecode = contractJSON.bytecode
