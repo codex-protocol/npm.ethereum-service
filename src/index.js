@@ -63,6 +63,7 @@ contractFileNames.forEach((contractFileName) => {
   const contract = new web3.eth.Contract(contractJSON.abi, contractJSON.address, { data: contractJSON.bytecode })
 
   contract.name = contractJSON.name
+  contract.rawAbi = contractJSON.abi
 
   contracts[contract.name] = contract
 
