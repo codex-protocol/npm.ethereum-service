@@ -60,10 +60,9 @@ contractFileNames.forEach((contractFileName) => {
 
   const contractJSON = JSON.parse(fs.readFileSync(contractFilePath))
 
-  const contract = new web3.eth.Contract(contractJSON.abi, contractJSON.address)
+  const contract = new web3.eth.Contract(contractJSON.abi, contractJSON.address, { data: contractJSON.bytecode })
 
   contract.name = contractJSON.name
-  contract.bytecode = contractJSON.bytecode
 
   contracts[contract.name] = contract
 
