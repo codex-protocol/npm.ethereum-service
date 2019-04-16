@@ -74,7 +74,7 @@ networkIds.forEach((networkId) => {
 
       // since the bytecode isn't really necessary on the frontend right now,
       //  let's remove it from the monolithic json file since doing so reduces
-      //  the file size from lik3 ~350kb to 100kb
+      //  the file size from like ~350kb to 100kb
       delete contractData.bytecode
 
       allContracts[networkId] = allContracts[networkId] || {}
