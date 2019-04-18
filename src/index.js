@@ -35,7 +35,13 @@ const transactionConfirmationBlocks = (() => {
   }
 })()
 
-const web3 = new Web3(process.env.ETHEREUM_RPC_URL, null, { transactionConfirmationBlocks })
+const web3Options = {
+  transactionConfirmationBlocks,
+  transactionBlockTimeout: 100,
+  transactionPollingTimeout: 900,
+}
+
+const web3 = new Web3(process.env.ETHEREUM_RPC_URL, null, web3Options)
 const { eth } = web3
 
 const contracts = {}
