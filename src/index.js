@@ -37,8 +37,8 @@ const transactionConfirmationBlocks = (() => {
 
 const web3Options = {
   transactionConfirmationBlocks,
-  transactionBlockTimeout: 100,
-  transactionPollingTimeout: 900,
+  transactionBlockTimeout: 50 * transactionConfirmationBlocks,
+  transactionPollingTimeout: 750 * transactionConfirmationBlocks,
 }
 
 const web3 = new Web3(process.env.ETHEREUM_RPC_URL, null, web3Options)
