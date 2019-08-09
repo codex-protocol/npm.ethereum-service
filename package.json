@@ -44,6 +44,6 @@
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.0.0",
-    "web3": "^2.0.0-alpha"
+    "web3": "^2.0.0-alpha.1"
   }
 }
