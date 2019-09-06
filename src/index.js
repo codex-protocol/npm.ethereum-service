@@ -30,7 +30,7 @@ const transactionConfirmationBlocks = (() => {
     case 'ganache': return 1
     case 'ropsten': return 1
     case 'rinkeby': return 1
-    case 'mainnet': return 2
+    case 'mainnet': return 1
     default: return 1
   }
 })()
