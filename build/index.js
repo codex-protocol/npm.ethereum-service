@@ -36,7 +36,7 @@ networkIds.forEach((networkId) => {
       const contractFilePath = `${sourceContractDirectoryPath}/${contractFileName}`
       const contractJSON = JSON.parse(fs.readFileSync(contractFilePath))
 
-      if (!contractJSON.networks[networkId] && contractJSON.contractName !== 'IdentityProxy') {
+      if (!contractJSON.networks[networkId] && contractJSON.contractName !== 'IdentityProxy' && contractJSON.contractName !== 'IdentityProxyV2') {
         console.warn('[npm.ethereum-service]', `skipping ${contractFilePath} because it has no address for network with id ${networkId}`)
         return
       }
