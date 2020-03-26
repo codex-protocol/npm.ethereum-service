@@ -17,10 +17,10 @@ networkIds.forEach((networkId) => {
   const sourceContractFileNames = fs.readdirSync(sourceContractDirectoryPath)
 
   if (
-    (sourceContractFileNames.includes('CodexRecord.json') && !sourceContractFileNames.includes('CodexRecordProxy.json'))
-    || (!sourceContractFileNames.includes('CodexRecord.json') && sourceContractFileNames.includes('CodexRecordProxy.json'))
+    (sourceContractFileNames.includes('CodexRecordV2.json') && !sourceContractFileNames.includes('CodexRecordProxy.json'))
+    || (!sourceContractFileNames.includes('CodexRecordV2.json') && sourceContractFileNames.includes('CodexRecordProxy.json'))
   ) {
-    console.warn('[npm.ethereum-service]', `CodexRecord and CodexRecordProxy are mutually inclusive, and one is missing for network id ${networkId}`)
+    console.warn('[npm.ethereum-service]', `CodexRecordV2 and CodexRecordProxy are mutually inclusive, and one is missing for network id ${networkId}`)
     process.exit(1)
   }
 
@@ -85,8 +85,8 @@ networkIds.forEach((networkId) => {
       allContracts[networkId] = allContracts[networkId] || {}
       allContracts[networkId][contractData.name] = contractData
 
-      if (allContracts[networkId].CodexRecord && allContracts[networkId].CodexRecordProxy) {
-        allContracts[networkId].CodexRecord.address = allContracts[networkId].CodexRecordProxy.address
+      if (allContracts[networkId].CodexRecordV2 && allContracts[networkId].CodexRecordProxy) {
+        allContracts[networkId].CodexRecordV2.address = allContracts[networkId].CodexRecordProxy.address
         delete allContracts[networkId].CodexRecordProxy
       }
 
